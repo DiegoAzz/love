@@ -16,7 +16,7 @@ window.i18nData = {
       statSafe: "100% Seguro",
       mobileHeading: "Mira lo que estás a punto de crear 👀",
       mobileCaption: "Fotos. Música. Declaración. Recuerdos. Todo en un solo lugar — hecho especialmente para esa persona.",
-      cta: "Quiero crear el mío 💜"
+      cta: "Quiero crear el mío ❤️"
     },
     qr: {
       title: "Parece un código QR. Hasta que lo escanea.",
@@ -211,7 +211,7 @@ window.i18nData = {
       statSafe: "100% Safe",
       mobileHeading: "See what you're about to create 👀",
       mobileCaption: "Photos. Music. Declaration. Memories. All in one place — crafted especially for that special person.",
-      cta: "Create mine now 💜"
+      cta: "Create mine now ❤️"
     },
     qr: {
       title: "It looks like a simple QR code. Until they scan it.",
@@ -406,7 +406,7 @@ window.i18nData = {
       statSafe: "100% Seguro",
       mobileHeading: "Veja o que você está prestes a criar 👀",
       mobileCaption: "Fotos. Música. Declaração. Memórias. Tudo em um só lugar — feito especialmente para essa pessoa.",
-      cta: "Quero criar o meu 💜"
+      cta: "Quero criar o meu ❤️"
     },
     qr: {
       title: "Parece um QR Code. Até ele(a) escanear.",
