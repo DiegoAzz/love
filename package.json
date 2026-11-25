@@ -1,0 +1,20 @@
+{
+  "name": "love",
+  "version": "1.0.0",
+  "description": "Love (love.appzplay.online) - Crea tu mini-sitio inolvidable con código QR",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs",
+    "dev": "node server.cjs"
+  },
+  "keywords": [
+    "love",
+    "romantic",
+    "tribute",
+    "netflix",
+    "landing-page",
+    "qr-code"
+  ],
+  "author": "DiegoAzz",
+  "license": "MIT"
+}

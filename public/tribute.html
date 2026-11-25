@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title id="page-title">Netflix | Nuestra Historia ❤️</title>
+  <link rel="icon" href="/images/favicon.png"/>
+
+  <!-- Google Fonts for Bebas Neue, Bricolage Grotesque, Geist -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@200..800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/bundle1.css"/>
+  <link rel="stylesheet" href="/css/bundle2.css"/>
+
+  <style>
+    :root {
+      --netflix-red: #E50914;
+      --netflix-black: #141414;
+      --netflix-dark: #000000;
+      --netflix-green: #46d369;
+      --netflix-gray: #808080;
+    }
+    body {
+      background-color: var(--netflix-black);
+      color: #ffffff;
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .font-netflix {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 1px;
+    }
+    .font-bricolage {
+      font-family: 'Bricolage Grotesque', sans-serif;
+    }
+
+    /* Netflix Intro Animation Overlay */
+    #netflix-intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000000;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      user-select: none;
+    }
+    #netflix-intro-overlay.hidden-overlay {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .netflix-intro-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Authentic Netflix 3D folded N SVG */
+    .netflix-n-container {
+      position: relative;
+      width: 120px;
+      height: 216px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+      filter: drop-shadow(0 0 30px rgba(229, 9, 20, 0.6));
+    }
+    .netflix-n-container.animating {
+      animation: netflixCinematicZoom 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes netflixCinematicZoom {
+      0% {
+        transform: scale(0.85);
+        opacity: 0.9;
+        filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.5));
+      }
+      20% {
+        transform: scale(1);
+        opacity: 1;
+        filter: drop-shadow(0 0 50px rgba(229, 9, 20, 0.9));
+      }
+      45% {
+        transform: scale(1.05);
+        opacity: 1;
+        filter: drop-shadow(0 0 70px rgba(229, 9, 20, 1)) brightness(1.2);
+      }
+      75% {
+        transform: scale(3.5);
+        opacity: 0.9;
+        filter: drop-shadow(0 0 100px rgba(229, 9, 20, 1)) brightness(1.6);
+      }
+      100% {
+        transform: scale(14);
+        opacity: 0;
+        filter: blur(12px) brightness(2);
+      }
+    }
+
+    /* Light Rays / Spectral Ribbons on impact */
+    .netflix-light-burst {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 100vh;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 
+        0 0 60px 20px #e50914,
+        -80px 0 50px 10px #ff0055,
+        80px 0 50px 10px #ff3b00,
+        -160px 0 70px 15px #9c27b0,
+        160px 0 70px 15px #00bcd4;
+    }
+    .netflix-n-container.animating .netflix-light-burst {
+      animation: burstFlash 2.8s ease-in-out forwards;
+    }
+    @keyframes burstFlash {
+      0%, 40% { opacity: 0; transform: translate(-50%, -50%) scaleX(0.2); }
+      50% { opacity: 0.95; transform: translate(-50%, -50%) scaleX(1.8); }
+      75% { opacity: 0.7; transform: translate(-50%, -50%) scaleX(4); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scaleX(8); }
+    }
+
+    /* Hero Gradient Fades */
+    .hero-top-gradient {
+      background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 50%);
+    }
+    .hero-bottom-gradient {
+      background: linear-gradient(180deg, rgba(20,20,20,0) 0%, rgba(20,20,20,0.8) 55%, #141414 100%);
+    }
+
+    /* Red Progress Bar under episodes */
+    .episode-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: var(--netflix-red);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #141414;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #333333;
+      border-radius: 4px;
+    }
+
+    /* Music Floating Bar */
+    .music-player-bar {
+      background: rgba(20, 20, 20, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    /* Equalizer Pulse Animation */
+    @keyframes eqBarPulse {
+      0% { height: 4px; }
+      50% { height: 18px; }
+      100% { height: 6px; }
+    }
+    .equalizer-bar {
+      height: 4px;
+      transition: height 0.15s ease;
+    }
+    .equalizer-bar.playing {
+      animation: eqBarPulse 0.8s ease-in-out infinite alternate;
+    }
+  </style>
+</head>
+<body class="selection:bg-red-600/30 selection:text-white pb-36">
+
+  <!-- Dramatic Netflix Intro Screen with authentic TUDUM -->
+  <div id="netflix-intro-overlay" onclick="startOrSkipIntro()">
+    <audio id="intro-audio" preload="auto" src="/audio/netflix-intro.mp3"></audio>
+
+    <div class="netflix-intro-content">
+      <div id="netflix-n-box" class="netflix-n-container">
+        <div class="netflix-light-burst"></div>
+        <!-- Exact Netflix 3D Folded N Logo SVG -->
+        <svg class="w-full h-full" viewBox="0 0 111 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0H37V200H0V0Z" fill="#b81d24"/>
+          <path d="M74 0H111V200H74V0Z" fill="#b81d24"/>
+          <path d="M0 0H37L74 200H37L0 0Z" fill="#E50914" style="filter: drop-shadow(-4px 0 10px rgba(0,0,0,0.9));"/>
+        </svg>
+      </div>
+
+      <div id="intro-badges" class="flex flex-col items-center mt-6 transition-all duration-500">
+        <span class="font-netflix text-3xl tracking-[0.25em] text-red-600 font-bold drop-shadow-md">NETFLIX</span>
+        <span class="text-[11px] tracking-[0.35em] text-white/80 uppercase font-semibold mt-1">SERIE ORIGINAL</span>
+      </div>
+
+      <!-- Tap to Play prompt (starts authentic Tudum intro) -->
+      <div id="intro-tap-prompt" class="flex flex-col items-center mt-10 transition-opacity duration-300">
+        <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center shadow-lg shadow-red-600/50 mb-3 animate-bounce">
+          <svg class="w-7 h-7 text-white ml-1" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+        <span class="text-sm font-bold tracking-widest uppercase text-white drop-shadow">TOCA PARA INICIAR</span>
+        <span class="text-xs text-red-400 font-medium mt-1">Con audio oficial TUDUM 🔊</span>
+      </div>
+
+      <!-- Skip button in corner -->
+      <button id="skip-intro-btn" onclick="event.stopPropagation(); finishIntro();" class="absolute bottom-6 right-6 text-xs text-white/50 hover:text-white uppercase tracking-wider border border-white/20 hover:border-white/60 px-3 py-1.5 rounded transition-all">
+        Omitir intro &gt;
+      </button>
+    </div>
+  </div>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 px-4 py-3 flex items-center justify-between hero-top-gradient">
+    <div class="flex items-center gap-2">
+      <!-- Netflix Iconic Red N -->
+      <span class="text-2xl font-bold font-netflix text-red-600 leading-none tracking-wider">N</span>
+      <span class="text-xs font-semibold uppercase tracking-wider text-white/90 hidden sm:inline">SERIES</span>
+    </div>
+
+    <div class="flex items-center gap-3 text-white">
+      <!-- Replay Netflix Intro button -->
+      <button onclick="replayNetflixIntro()" class="text-xs bg-red-600/80 hover:bg-red-600 text-white px-2.5 py-1 rounded font-semibold flex items-center gap-1 transition-colors shadow">
+        🎬 <span class="hidden sm:inline">Ver</span> Intro
+      </button>
+      <!-- Notifications bell with red dot -->
+      <div class="relative cursor-pointer hover:text-red-500 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
+        <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-600"></span>
+      </div>
+      <!-- User Avatar -->
+      <div class="w-7 h-7 rounded bg-red-600 flex items-center justify-center font-bold text-xs text-white shadow-md">
+        ❤️
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Hero Billboard & Photo Carousel Container -->
+  <div class="relative w-full max-w-2xl mx-auto overflow-hidden">
+    
+    <!-- Hero Photo Slideshow -->
+    <div class="relative w-full h-[460px] sm:h-[540px] bg-black">
+      <img id="hero-photo" src="/videos/hero-criar.jpg" alt="Foto Principal" class="w-full h-full object-cover transition-opacity duration-700 ease-in-out">
+      
+      <!-- Top overlay shadow -->
+      <div class="absolute inset-x-0 top-0 h-28 hero-top-gradient pointer-events-none"></div>
+
+      <!-- Bottom overlay gradient with series metadata -->
+      <div class="absolute inset-x-0 bottom-0 pt-24 pb-4 px-5 hero-bottom-gradient flex flex-col justify-end">
+        
+        <!-- Carousel dot indicator pill -->
+        <div id="carousel-dots-pill" class="self-center mb-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md flex items-center gap-1.5 z-20">
+          <span class="dot-bar w-5 h-1 rounded-full bg-red-600 transition-all"></span>
+          <span class="dot-bar w-1.5 h-1 rounded-full bg-zinc-500 transition-all"></span>
+          <span class="dot-bar w-1.5 h-1 rounded-full bg-zinc-500 transition-all"></span>
+        </div>
+
+        <!-- Serie Original Badge -->
+        <div class="flex items-center gap-1.5 mb-1.5">
+          <span class="text-sm font-extrabold font-netflix text-red-600 leading-none">N</span>
+          <span id="badge-series" class="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-white/90">SERIE ORIGINAL</span>
+        </div>
+
+        <!-- Couple Title -->
+        <h1 id="netflix-title" class="text-3xl sm:text-5xl font-extrabold uppercase tracking-wide text-white font-netflix leading-none drop-shadow-md mb-2">
+          LUCAS & CAMILA
+        </h1>
+
+        <!-- Metadata Line -->
+        <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-white/90 mb-4">
+          <span class="text-[#46d369] font-bold">99% relevante</span>
+          <span>·</span>
+          <span id="netflix-year">2022</span>
+          <span>·</span>
+          <span id="netflix-seasons">1 Temporada</span>
+          <span>·</span>
+          <span class="px-1 py-0.5 rounded bg-zinc-800 text-[10px] text-zinc-300 font-bold border border-zinc-700">L</span>
+          <span class="px-1 py-0.5 rounded bg-zinc-800 text-[10px] text-zinc-300 font-bold border border-zinc-700">HD</span>
+          <span>·</span>
+          <span id="netflix-ep-count">7 Episodios</span>
+        </div>
+
+        <!-- Big Action Buttons -->
+        <div class="grid grid-cols-2 gap-3 mb-2">
+          <button id="btn-hero-play" onclick="toggleMusicPlay()" class="w-full py-2.5 rounded bg-white hover:bg-neutral-200 text-black font-bold text-sm flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg">
+            <span id="hero-play-icon" class="text-base leading-none">▶</span>
+            <span id="hero-play-text">Reproducir</span>
+          </button>
+          <button onclick="saveToList()" id="btn-my-list" class="w-full py-2.5 rounded bg-zinc-800/90 hover:bg-zinc-700 text-white font-semibold text-sm flex items-center justify-center gap-2 backdrop-blur-md transition-transform active:scale-95 border border-white/10">
+            <span id="btn-my-list-text">+ Mi Lista</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Main Netflix Content Body -->
+    <div class="px-5 pt-3 pb-8 space-y-6">
+
+      <!-- Trending Pill Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/20 border border-red-600/40 text-red-500 text-xs font-bold uppercase tracking-wider">
+        <span>🔥</span> <span id="badge-trending-text">EM ALTA · #1 NO CORAÇÃO HOJE</span>
+      </div>
+
+      <!-- Synopsis / Love Letter Excerpt -->
+      <div class="space-y-3">
+        <p id="netflix-synopsis" class="text-sm leading-relaxed text-zinc-300 font-light">
+          "Se o amor fosse um livro, cada página nossa seria escrita com emoção, ternura e a doçura de quem encontrou no outro o complemento perfeito. Você é minha história favorita, meu capítulo mais intenso e meu final feliz garantido. E se depender de mim, esse livro nunca terá fim, porque ao seu lado, eu quero escrever infinitos dias de amor."
+        </p>
+
+        <!-- Cast & Tags -->
+        <div class="text-xs space-y-1 pt-1 text-zinc-400">
+          <div><span id="label-cast" class="text-zinc-500 font-medium">Reparto:</span> <span id="netflix-cast" class="text-zinc-300 font-semibold">Lucas & Camila</span></div>
+          <div><span id="label-genres" class="text-zinc-500 font-medium">Géneros:</span> <span id="label-genres-val" class="text-zinc-300">Romance, Aventura, Familia, Comedia</span></div>
+          <div><span id="label-this-series" class="text-zinc-500 font-medium">Esta serie es:</span> <span id="label-this-series-val" class="text-zinc-300">Emocionante, Especial, Inolvidable, Inspiradora</span></div>
+        </div>
+      </div>
+
+      <!-- LIVE RELATIONSHIP COUNTER ("NO AR AO VIVO · TRANSMITINDO HÁ") -->
+      <div class="rounded-2xl p-5 bg-zinc-900/90 border border-zinc-800 shadow-xl space-y-3">
+        
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-red-500">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
+          <span id="badge-live-text">● TRANSMITIENDO EN VIVO · EN EL AIRE HACE</span>
+        </div>
+
+        <!-- Big Red / White Days Counter -->
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-netflix text-white tracking-wider">
+          <div class="flex items-baseline gap-1">
+            <span id="live-years" class="text-4xl sm:text-5xl font-extrabold text-red-600">0</span>
+            <span id="label-years" class="text-sm text-zinc-400 uppercase">AÑOS</span>
+          </div>
+          <div class="flex items-baseline gap-1">
+            <span id="live-months" class="text-4xl sm:text-5xl font-extrabold text-white">0</span>
+            <span id="label-months" class="text-sm text-zinc-400 uppercase">MESES</span>
+          </div>
+          <div class="flex items-baseline gap-1">
+            <span id="live-days" class="text-4xl sm:text-5xl font-extrabold text-white">0</span>
+            <span id="label-days" class="text-sm text-zinc-400 uppercase">DÍAS</span>
+          </div>
+        </div>
+
+        <!-- HH : MM : SS Box -->
+        <div class="p-3 rounded-xl bg-black/60 border border-zinc-800 flex flex-col items-center justify-center">
+          <div class="font-mono text-2xl sm:text-3xl font-bold tracking-widest text-zinc-200">
+            <span id="live-hours">00</span> : <span id="live-minutes">00</span> : <span id="live-seconds" class="text-red-500">00</span>
+          </div>
+          <div id="label-hms" class="text-[10px] uppercase font-bold tracking-widest text-zinc-500 mt-0.5">
+            HORAS · MINUTOS · SEGUNDOS
+          </div>
+        </div>
+
+        <!-- Premiere Date -->
+        <div class="flex items-center gap-2 text-xs pt-1 text-zinc-400">
+          <span class="text-red-600 text-xs">▶</span>
+          <span id="label-premiere-text">Estrenó el:</span>
+          <strong id="live-premiere" class="text-white font-bold">12 de Junio de 2022</strong>
+        </div>
+
+      </div>
+
+      <!-- EPISODIOS SECTION -->
+      <div class="space-y-4 pt-2">
+        <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
+          <h2 id="heading-episodes" class="text-lg font-bold text-white font-bricolage">Episodios</h2>
+          <div class="px-3 py-1 rounded bg-zinc-800 text-xs font-semibold text-white border border-zinc-700 flex items-center gap-1.5 cursor-pointer">
+            <span id="badge-season">Temporada 1</span>
+            <span class="text-[10px]">▼</span>
+          </div>
+        </div>
+
+        <!-- Episodes List Container -->
+        <div id="episodes-container" class="space-y-4"></div>
+      </div>
+
+      <!-- MAIS COMO ESTO / MORE LIKE THIS -->
+      <div class="space-y-3 pt-4">
+        <h3 id="heading-more-like-this" class="text-base font-bold text-white font-bricolage">Más títulos similares</h3>
+        <div id="more-like-this-strip" class="flex gap-2.5 overflow-x-auto pb-2 scrollbar-none"></div>
+      </div>
+
+      <!-- Carta Completa / Full Letter Box -->
+      <div class="p-5 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-2">
+        <div id="heading-love-letter" class="text-xs uppercase font-bold tracking-wider text-red-500">Carta de Amor ❤️</div>
+        <p id="full-letter-text" class="text-xs leading-relaxed text-zinc-300 italic"></p>
+        <div class="text-right text-xs text-zinc-400 pt-2 font-medium" id="letter-signature">
+          Con amor para siempre.
+        </div>
+      </div>
+
+      <!-- Share WhatsApp Action -->
+      <div class="p-4 rounded-xl bg-gradient-to-r from-red-950/40 via-zinc-900 to-black border border-red-900/40 flex items-center justify-between">
+        <div>
+          <div id="label-share-q" class="text-xs font-bold text-white">¿Compartir esta serie?</div>
+          <div id="label-share-sub" class="text-[10px] text-zinc-400">Envía el enlace oficial a tu pareja</div>
+        </div>
+        <button onclick="shareWhatsApp()" class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg transition-transform active:scale-95">
+          <span>💬</span> WhatsApp
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Sticky Bottom YouTube / Netflix Style Music Bar -->
+  <div class="fixed bottom-3 inset-x-3 max-w-lg mx-auto music-player-bar rounded-2xl p-3 flex items-center justify-between z-40">
+    <div class="flex items-center gap-3 overflow-hidden">
+      <!-- Red YouTube Play Icon -->
+      <button onclick="toggleMusicPlay()" class="w-10 h-10 rounded-xl bg-red-600 hover:bg-red-500 text-white flex items-center justify-center shrink-0 shadow-md transition-all active:scale-95">
+        <span id="music-bar-icon" class="text-xs ml-0.5">▶</span>
+      </button>
+      <div class="overflow-hidden">
+        <div id="music-bar-song" class="text-xs font-bold text-white truncate">Perfect - Ed Sheeran</div>
+        <div class="text-[10px] text-zinc-400 flex items-center gap-2">
+          <span id="label-soundtrack">Trilha Sonora Oficial</span>
+          <span>·</span>
+          <span class="text-red-500 font-mono font-bold" id="music-timer">0:00 / 0:00</span>
+        </div>
+      </div>
+    </div>
+    <!-- Equalizer waves -->
+    <div class="flex items-end gap-1 h-5 px-2">
+      <span class="w-1 bg-red-600 rounded-full equalizer-bar" style="animation-delay: 0.1s"></span>
+      <span class="w-1 bg-white rounded-full equalizer-bar" style="animation-delay: 0.3s"></span>
+      <span class="w-1 bg-red-600 rounded-full equalizer-bar" style="animation-delay: 0.5s"></span>
+      <span class="w-1 bg-white rounded-full equalizer-bar" style="animation-delay: 0.2s"></span>
+    </div>
+  </div>
+
+  <!-- Audio Element for Song -->
+  <audio id="audio-player" loop preload="auto" src="/audio/perfect.mp3"></audio>
+
+  <script>
+    let tributeData = null;
+    let photosList = [];
+    let currentHeroIdx = 0;
+    let heroInterval = null;
+    let isPlayingMusic = false;
+    let currentLang = 'es';
+
+    const audioPlayer = document.getElementById('audio-player');
+
+    // Multilingual Translations for Netflix Tribute
+    const tributeI18n = {
+      es: {
+        pageTitleSuffix: "Netflix Serie Original",
+        originalSeries: "SERIE ORIGINAL",
+        watch: "Reproducir",
+        pause: "Pausar",
+        myList: "+ Mi Lista",
+        inMyList: "✓ En Mi Lista",
+        trending: "EN TENDENCIA · #1 EN EL CORAZÓN HOY",
+        cast: "Reparto:",
+        genres: "Géneros:",
+        genresVal: "Romance, Aventura, Familia, Comedia",
+        thisSeries: "Esta serie es:",
+        thisSeriesVal: "Emocionante, Especial, Inolvidable, Inspiradora",
+        liveOnAir: "● TRANSMITIENDO EN VIVO · EN EL AIRE HACE",
+        years: "AÑOS",
+        months: "MESES",
+        days: "DÍAS",
+        hms: "HORAS · MINUTOS · SEGUNDOS",
+        premiere: "Estrenó el:",
+        episodes: "Episodios",
+        season1: "Temporada 1",
+        seasons: "Temporadas",
+        seasonSingle: "Temporada",
+        moreLikeThis: "Más títulos similares",
+        loveLetter: "Carta de Amor ❤️",
+        letterSign: "Con amor para siempre,",
+        shareQ: "¿Compartir esta serie?",
+        shareSub: "Envía el enlace oficial a tu pareja",
+        soundtrack: "Banda Sonora Oficial",
+        tapToContinue: "Toca la pantalla para continuar y activar música 🎵",
+        chapter: "Capítulo",
+        memory: "Recuerdo",
+        episodeDesc: "Un momento inolvidable grabado en el corazón de nuestra historia de amor.",
+        defaultMsg: "Señor de mi vida y razón de mi alegría. Cada segundo a tu lado ha sido el regalo más hermoso. Gracias por llenar mis días de sonrisas, por tu paciencia y por caminar a mi lado. Te amo con todo mi corazón.",
+        episodeTitles: [
+          "El Comienzo de Todo",
+          "Primeras Miradas y Sonrisas",
+          "El Día en Que Supe Que Eras Tú",
+          "Nuestra Aventura Favorita",
+          "Momentos Que Guardaré Para Siempre",
+          "Complicidad y Conexión",
+          "Nuestro Amor Sin Fin"
+        ]
+      },
+      en: {
+        pageTitleSuffix: "Netflix Original Series",
+        originalSeries: "ORIGINAL SERIES",
+        watch: "Play",
+        pause: "Pause",
+        myList: "+ My List",
+        inMyList: "✓ In My List",
+        trending: "TRENDING NOW · #1 IN THE HEART TODAY",
+        cast: "Cast:",
+        genres: "Genres:",
+        genresVal: "Romance, Adventure, Family, Comedy",
+        thisSeries: "This series is:",
+        thisSeriesVal: "Heartfelt, Special, Unforgettable, Inspiring",
+        liveOnAir: "● LIVE ON AIR · STREAMING FOR",
+        years: "YEARS",
+        months: "MONTHS",
+        days: "DAYS",
+        hms: "HOURS · MINUTES · SECONDS",
+        premiere: "Premiered on:",
+        episodes: "Episodes",
+        season1: "Season 1",
+        seasons: "Seasons",
+        seasonSingle: "Season",
+        moreLikeThis: "More Like This",
+        loveLetter: "Love Letter ❤️",
+        letterSign: "With love forever,",
+        shareQ: "Share this series?",
+        shareSub: "Send the official link to your partner",
+        soundtrack: "Official Soundtrack",
+        tapToContinue: "Tap screen to continue & play music 🎵",
+        chapter: "Chapter",
+        memory: "Memory",
+        episodeDesc: "An unforgettable moment etched into the heart of our love story.",
+        defaultMsg: "Every second by your side has been the greatest gift of my life. Thank you for bringing so much joy, love, and laughter into my days. I love you endlessly.",
+        episodeTitles: [
+          "The Beginning of Everything",
+          "First Looks and Smiles",
+          "The Day I Knew You Were The One",
+          "Our Favorite Adventure",
+          "Moments I Will Keep Forever",
+          "Complicity and Connection",
+          "Our Endless Love"
+        ]
+      },
+      pt: {
+        pageTitleSuffix: "Netflix Série Original",
+        originalSeries: "SÉRIE ORIGINAL",
+        watch: "Assistir",
+        pause: "Pausar",
+        myList: "+ Minha Lista",
+        inMyList: "✓ Na Minha Lista",
+        trending: "EM ALTA · #1 NO CORAÇÃO HOJE",
+        cast: "Elenco:",
+        genres: "Gêneros:",
+        genresVal: "Romance, Aventura, Família, Comédia",
+        thisSeries: "Esta série é:",
+        thisSeriesVal: "Emocionante, Especial, Inesquecível, Inspiradora",
+        liveOnAir: "● NO AR AO VIVO · TRANSMITINDO HÁ",
+        years: "ANOS",
+        months: "MESES",
+        days: "DIAS",
+        hms: "HORAS · MINUTOS · SEGUNDOS",
+        premiere: "Estreou em:",
+        episodes: "Episódios",
+        season1: "Temporada 1",
+        seasons: "Temporadas",
+        seasonSingle: "Temporada",
+        moreLikeThis: "Mais como isto",
+        loveLetter: "Carta de Amor ❤️",
+        letterSign: "Com amor para sempre,",
+        shareQ: "¿Compartilhar esta série?",
+        shareSub: "Envie o link oficial para o seu amor",
+        soundtrack: "Trilha Sonora Oficial",
+        tapToContinue: "Toque na tela para continuar e ouvir música 🎵",
+        chapter: "Capítulo",
+        memory: "Memória",
+        episodeDesc: "Um momento inesquecível gravado no coração da nossa história de amor.",
+        defaultMsg: "Se o amor fosse um livro, cada página nossa seria escrita com emoção, ternura e a doçura de quem encontrou no outro o complemento perfeito. Você é minha história favorita, meu capítulo mais intenso e meu final feliz garantido.",
+        episodeTitles: [
+          "O Começo de Tudo",
+          "Primeiros Olhares e Sorrisos",
+          "O Dia em Que Soube Que Era Você",
+          "Nossa Aventura Favorita",
+          "Momentos Que Guardarei Para Sempre",
+          "Cumplicidade e Conexão",
+          "Nosso Amor Sem Fim"
+        ]
+      }
+    };
+
+    // Authentic Netflix "TUDUM" Sound & Intro Controller
+    let isIntroPlaying = false;
+    let introFinished = false;
+
+    function playTudumSound() {
+      const introAudio = document.getElementById('intro-audio');
+      if (introAudio) {
+        introAudio.currentTime = 0;
+        introAudio.volume = 1.0;
+        return introAudio.play().catch(e => {
+          console.warn('Official intro audio blocked, using Web Audio fallback:', e);
+          playSyntheticTudum();
+        });
+      } else {
+        playSyntheticTudum();
+      }
+    }
+
+    // High quality synthetic Web Audio fallback if media audio fails
+    function playSyntheticTudum() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+
+        // 1st Deep Sub Bass Note (D)
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'sawtooth';
+        osc1.frequency.setValueAtTime(58.27, ctx.currentTime);
+        osc1.frequency.exponentialRampToValueAtTime(73.42, ctx.currentTime + 0.15);
+        gain1.gain.setValueAtTime(0.7, ctx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start();
+        osc1.stop(ctx.currentTime + 1.2);
+
+        // 2nd Resonant Chord Note
+        setTimeout(() => {
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(146.83, ctx.currentTime);
+          gain2.gain.setValueAtTime(0.5, ctx.currentTime);
+          gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.6);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start();
+          osc2.stop(ctx.currentTime + 1.6);
+        }, 120);
+      } catch (e) {
+        console.log('Synthetic audio note:', e);
+      }
+    }
+
+    function startOrSkipIntro() {
+      if (introFinished) return;
+      if (!isIntroPlaying) {
+        // Start the Netflix intro sequence!
+        isIntroPlaying = true;
+        const prompt = document.getElementById('intro-tap-prompt');
+        const badges = document.getElementById('intro-badges');
+        const nBox = document.getElementById('netflix-n-box');
+
+        if (prompt) prompt.style.opacity = '0';
+        if (badges) badges.style.opacity = '0';
+        if (nBox) {
+          nBox.classList.remove('animating');
+          void nBox.offsetWidth; // trigger reflow
+          nBox.classList.add('animating');
+        }
+
+        playTudumSound();
+
+        // Once intro finishes (~2.7s), transition to tribute page
+        setTimeout(() => {
+          finishIntro();
+        }, 2700);
+      } else {
+        // Tapped while playing: skip directly
+        finishIntro();
+      }
+    }
+
+    function finishIntro() {
+      if (introFinished) return;
+      introFinished = true;
+      const overlay = document.getElementById('netflix-intro-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden-overlay');
+      }
+      playMusic();
+    }
+
+    function replayNetflixIntro() {
+      const overlay = document.getElementById('netflix-intro-overlay');
+      const prompt = document.getElementById('intro-tap-prompt');
+      const badges = document.getElementById('intro-badges');
+      const nBox = document.getElementById('netflix-n-box');
+
+      pauseMusic();
+      introFinished = false;
+      isIntroPlaying = false;
+
+      if (prompt) prompt.style.opacity = '0';
+      if (badges) badges.style.opacity = '1';
+      if (nBox) nBox.classList.remove('animating');
+
+      if (overlay) {
+        overlay.classList.remove('hidden-overlay');
+      }
+
+      setTimeout(() => {
+        startOrSkipIntro();
+      }, 100);
+    }
+
+    // Audio Playback Controller
+    function formatTime(seconds) {
+      if (isNaN(seconds) || seconds < 0) return '0:00';
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function updateAudioControls(playing) {
+      isPlayingMusic = playing;
+      const t = tributeI18n[currentLang] || tributeI18n.es;
+      const barIcon = document.getElementById('music-bar-icon');
+      const heroIcon = document.getElementById('hero-play-icon');
+      const heroText = document.getElementById('hero-play-text');
+      const eqBars = document.querySelectorAll('.equalizer-bar');
+
+      if (playing) {
+        if (barIcon) barIcon.textContent = '⏸';
+        if (heroIcon) heroIcon.textContent = '⏸';
+        if (heroText) heroText.textContent = t.pause;
+        eqBars.forEach(b => b.classList.add('playing'));
+      } else {
+        if (barIcon) barIcon.textContent = '▶';
+        if (heroIcon) heroIcon.textContent = '▶';
+        if (heroText) heroText.textContent = t.watch;
+        eqBars.forEach(b => b.classList.remove('playing'));
+      }
+    }
+
+    async function playMusic() {
+      try {
+        if (!audioPlayer.src || audioPlayer.src.endsWith('/')) {
+          audioPlayer.src = '/audio/perfect.mp3';
+        }
+        await audioPlayer.play();
+        updateAudioControls(true);
+      } catch (err) {
+        console.warn('Playback blocked until user interaction:', err);
+        updateAudioControls(false);
+      }
+    }
+
+    function pauseMusic() {
+      audioPlayer.pause();
+      updateAudioControls(false);
+    }
+
+    function toggleMusicPlay() {
+      if (audioPlayer.paused) {
+        playMusic();
+      } else {
+        pauseMusic();
+      }
+    }
+
+    // Sync timer display with actual audio position (sanitized against Infinity/NaN)
+    audioPlayer.addEventListener('timeupdate', () => {
+      const timer = document.getElementById('music-timer');
+      if (timer) {
+        const cur = formatTime(audioPlayer.currentTime);
+        const dur = isFinite(audioPlayer.duration) && audioPlayer.duration > 0 ? formatTime(audioPlayer.duration) : '3:45';
+        timer.textContent = `${cur} / ${dur}`;
+      }
+    });
+
+    audioPlayer.addEventListener('play', () => updateAudioControls(true));
+    audioPlayer.addEventListener('pause', () => updateAudioControls(false));
+    audioPlayer.addEventListener('ended', () => {
+      audioPlayer.currentTime = 0;
+      playMusic();
+    });
+
+    // Auto attempt intro sound on load if browser autoplay policy permits
+    setTimeout(() => {
+      const introAudio = document.getElementById('intro-audio');
+      if (introAudio) {
+        introAudio.play().then(() => {
+          // Autoplay was allowed by browser!
+          isIntroPlaying = true;
+          const prompt = document.getElementById('intro-tap-prompt');
+          const badges = document.getElementById('intro-badges');
+          const nBox = document.getElementById('netflix-n-box');
+          if (prompt) prompt.style.opacity = '0';
+          if (badges) badges.style.opacity = '0';
+          if (nBox) nBox.classList.add('animating');
+          setTimeout(() => finishIntro(), 2700);
+        }).catch(() => {
+          // Normal behavior: browser requires 1 tap/click, tap prompt is prominently shown!
+          console.log('Autoplay muted by browser policy. User tap will start Netflix TUDUM intro.');
+        });
+      }
+    }, 150);
+
+    // Load tribute data
+    const pathParts = window.location.pathname.split('/');
+    const tributeId = pathParts[pathParts.length - 1] || 'demo';
+    const urlParams = new URLSearchParams(window.location.search);
+
+    async function loadTribute() {
+      let data = null;
+
+      // 1. Try server API
+      try {
+        const res = await fetch('/api/tributes/' + tributeId);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.ok && json.tribute) {
+            data = json.tribute;
+          }
+        }
+      } catch (e) {}
+
+      // 2. Try LocalStorage
+      if (!data) {
+        try {
+          const local = localStorage.getItem('tribute_' + tributeId) || localStorage.getItem('last_created_tribute');
+          if (local) {
+            data = JSON.parse(local);
+          }
+        } catch (e) {}
+      }
+
+      // 3. Fallback demo
+      if (!data) {
+        data = {
+          sender: 'Lucas',
+          partner: 'Camila',
+          title: 'Nuestra Historia Inolvidable',
+          date: '2022-06-12',
+          song: 'Perfect - Ed Sheeran',
+          theme: 'netflix',
+          lang: 'es',
+          message: 'Señor de mi vida y razón de mi alegría. Cada segundo a tu lado ha sido el regalo más hermoso de mi vida. Gracias por llenar mis días de sonrisas, por tu paciencia y por caminar a mi lado. Te amo con todo mi corazón.',
+          photos: ['/videos/hero-criar.jpg', '/images/og-default.png']
+        };
+      }
+
+      // Determine Language
+      currentLang = urlParams.get('lang') || data.lang || 'es';
+      if (!tributeI18n[currentLang]) currentLang = 'es';
+
+      initTributeView(data);
+    }
+
+    function initTributeView(data) {
+      tributeData = data;
+      const t = tributeI18n[currentLang] || tributeI18n.es;
+
+      // Setup audio source
+      if (data.audioData) {
+        audioPlayer.src = data.audioData;
+      } else {
+        audioPlayer.src = '/audio/perfect.mp3';
+      }
+
+      const coupleNames = `${data.sender || 'Lucas'} & ${data.partner || 'Camila'}`.toUpperCase();
+      document.getElementById('page-title').textContent = `${coupleNames} | ${t.pageTitleSuffix}`;
+      document.getElementById('netflix-title').textContent = coupleNames;
+      document.getElementById('netflix-cast').textContent = `${data.sender || 'Lucas'} & ${data.partner || 'Camila'}`;
+      
+      const msg = data.message || t.defaultMsg;
+      document.getElementById('netflix-synopsis').textContent = `"${msg}"`;
+      document.getElementById('full-letter-text').textContent = msg;
+      document.getElementById('letter-signature').textContent = `${t.letterSign} ${data.sender || 'Lucas'} ❤️`;
+      document.getElementById('music-bar-song').textContent = data.song || 'Perfect - Ed Sheeran';
+
+      // Apply i18n texts
+      if (document.getElementById('badge-series')) document.getElementById('badge-series').textContent = t.originalSeries;
+      if (document.getElementById('hero-play-text')) document.getElementById('hero-play-text').textContent = t.watch;
+      if (document.getElementById('btn-my-list-text')) document.getElementById('btn-my-list-text').textContent = t.myList;
+      if (document.getElementById('badge-trending-text')) document.getElementById('badge-trending-text').textContent = t.trending;
+      if (document.getElementById('label-cast')) document.getElementById('label-cast').textContent = t.cast;
+      if (document.getElementById('label-genres')) document.getElementById('label-genres').textContent = t.genres;
+      if (document.getElementById('label-genres-val')) document.getElementById('label-genres-val').textContent = t.genresVal;
+      if (document.getElementById('label-this-series')) document.getElementById('label-this-series').textContent = t.thisSeries;
+      if (document.getElementById('label-this-series-val')) document.getElementById('label-this-series-val').textContent = t.thisSeriesVal;
+      if (document.getElementById('badge-live-text')) document.getElementById('badge-live-text').textContent = t.liveOnAir;
+      if (document.getElementById('label-years')) document.getElementById('label-years').textContent = t.years;
+      if (document.getElementById('label-months')) document.getElementById('label-months').textContent = t.months;
+      if (document.getElementById('label-days')) document.getElementById('label-days').textContent = t.days;
+      if (document.getElementById('label-hms')) document.getElementById('label-hms').textContent = t.hms;
+      if (document.getElementById('label-premiere-text')) document.getElementById('label-premiere-text').textContent = t.premiere;
+      if (document.getElementById('heading-episodes')) document.getElementById('heading-episodes').textContent = t.episodes;
+      if (document.getElementById('badge-season')) document.getElementById('badge-season').textContent = t.season1;
+      if (document.getElementById('heading-more-like-this')) document.getElementById('heading-more-like-this').textContent = t.moreLikeThis;
+      if (document.getElementById('heading-love-letter')) document.getElementById('heading-love-letter').textContent = t.loveLetter;
+      if (document.getElementById('label-share-q')) document.getElementById('label-share-q').textContent = t.shareQ;
+      if (document.getElementById('label-share-sub')) document.getElementById('label-share-sub').textContent = t.shareSub;
+      if (document.getElementById('label-soundtrack')) document.getElementById('label-soundtrack').textContent = t.soundtrack;
+
+      // Photos
+      if (data.photos && data.photos.length > 0) {
+        photosList = data.photos;
+      } else {
+        photosList = ['/videos/hero-criar.jpg', '/images/og-default.png'];
+      }
+
+      document.getElementById('netflix-ep-count').textContent = `${photosList.length} ${t.episodes}`;
+
+      // Year
+      const year = data.date ? new Date(data.date).getFullYear() : '2022';
+      document.getElementById('netflix-year').textContent = year;
+
+      // Init Hero Slider
+      initHeroSlider();
+
+      // Render Episodes
+      renderEpisodes();
+
+      // Render "Más títulos similares"
+      renderMoreLikeThis();
+
+      // Start live counter
+      startLiveCounter(data.date || '2022-06-12');
+    }
+
+    // Hero Photo Slideshow with active dot indicators
+    function initHeroSlider() {
+      const dotsPill = document.getElementById('carousel-dots-pill');
+      dotsPill.innerHTML = '';
+      photosList.forEach((_, idx) => {
+        const dot = document.createElement('span');
+        dot.className = idx === 0 
+          ? 'dot-bar w-5 h-1 rounded-full bg-red-600 transition-all'
+          : 'dot-bar w-1.5 h-1 rounded-full bg-zinc-500 transition-all';
+        dotsPill.appendChild(dot);
+      });
+
+      if (photosList.length > 0) {
+        document.getElementById('hero-photo').src = photosList[0];
+      }
+
+      if (heroInterval) clearInterval(heroInterval);
+      heroInterval = setInterval(() => {
+        currentHeroIdx = (currentHeroIdx + 1) % photosList.length;
+        const heroImg = document.getElementById('hero-photo');
+        heroImg.style.opacity = '0.35';
+        setTimeout(() => {
+          heroImg.src = photosList[currentHeroIdx];
+          heroImg.style.opacity = '1';
+        }, 220);
+
+        // Update dots
+        const dots = dotsPill.querySelectorAll('.dot-bar');
+        dots.forEach((d, i) => {
+          if (i === currentHeroIdx) {
+            d.className = 'dot-bar w-5 h-1 rounded-full bg-red-600 transition-all';
+          } else {
+            d.className = 'dot-bar w-1.5 h-1 rounded-full bg-zinc-500 transition-all';
+          }
+        });
+      }, 3500);
+    }
+
+    // Render Episode rows (Capítulo 01, 02...)
+    function renderEpisodes() {
+      const container = document.getElementById('episodes-container');
+      container.innerHTML = '';
+      const t = tributeI18n[currentLang] || tributeI18n.es;
+      const epTitles = t.episodeTitles;
+
+      photosList.forEach((photoSrc, idx) => {
+        const epNum = (idx + 1).toString().padStart(2, '0');
+        const epTitle = epTitles[idx % epTitles.length];
+        
+        const epCard = document.createElement('div');
+        epCard.className = 'p-3 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800/80 transition-all space-y-2 cursor-pointer';
+        epCard.onclick = () => {
+          document.getElementById('hero-photo').src = photoSrc;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          playMusic();
+        };
+
+        epCard.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="text-xl sm:text-2xl font-bold text-zinc-500 font-mono w-7 shrink-0">${epNum}</span>
+            <div class="relative w-28 sm:w-36 h-18 sm:h-20 rounded-lg overflow-hidden bg-black shrink-0">
+              <img src="${photoSrc}" class="w-full h-full object-cover" alt="Episódio ${epNum}">
+              <div class="episode-progress w-[85%]"></div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-baseline justify-between gap-2">
+                <h4 class="text-xs sm:text-sm font-bold text-white truncate">${t.chapter} ${epNum} — ${epTitle}</h4>
+                <span class="text-[10px] text-zinc-500 shrink-0">3min</span>
+              </div>
+              <p class="text-[11px] text-zinc-400 mt-1 line-clamp-2 font-light">
+                ${t.episodeDesc}
+              </p>
+            </div>
+          </div>
+        `;
+        container.appendChild(epCard);
+      });
+    }
+
+    function renderMoreLikeThis() {
+      const strip = document.getElementById('more-like-this-strip');
+      strip.innerHTML = '';
+      const t = tributeI18n[currentLang] || tributeI18n.es;
+
+      photosList.forEach((src, i) => {
+        const card = document.createElement('div');
+        card.className = 'w-28 sm:w-32 h-40 sm:h-44 rounded-xl overflow-hidden bg-zinc-800 shrink-0 border border-zinc-700/60 shadow-md relative group cursor-pointer';
+        card.onclick = () => {
+          document.getElementById('hero-photo').src = src;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          playMusic();
+        };
+        card.innerHTML = `
+          <img src="${src}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Recuerdo">
+          <div class="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black via-black/60 to-transparent">
+            <div class="text-[10px] font-bold text-white truncate">${t.memory} #${i + 1}</div>
+          </div>
+        `;
+        strip.appendChild(card);
+      });
+    }
+
+    // Live Ticking Counter
+    function startLiveCounter(startDateStr) {
+      const start = new Date(startDateStr);
+      const t = tributeI18n[currentLang] || tributeI18n.es;
+      
+      const locale = currentLang === 'es' ? 'es-ES' : (currentLang === 'en' ? 'en-US' : 'pt-BR');
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      document.getElementById('live-premiere').textContent = start.toLocaleDateString(locale, options);
+
+      function update() {
+        const now = new Date();
+        const diff = Math.max(0, now - start);
+
+        const totalSecs = Math.floor(diff / 1000);
+        const days = Math.floor(totalSecs / 86400);
+        const hours = Math.floor((totalSecs % 86400) / 3600);
+        const mins = Math.floor((totalSecs % 3600) / 60);
+        const secs = totalSecs % 60;
+
+        const years = Math.floor(days / 365);
+        const months = Math.floor((days % 365) / 30);
+        const remDays = (days % 365) % 30;
+
+        document.getElementById('live-years').textContent = years;
+        document.getElementById('live-months').textContent = months;
+        document.getElementById('live-days').textContent = remDays;
+
+        document.getElementById('live-hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('live-minutes').textContent = mins.toString().padStart(2, '0');
+        document.getElementById('live-seconds').textContent = secs.toString().padStart(2, '0');
+
+        if (years > 1) {
+          document.getElementById('netflix-seasons').textContent = `${years} ${t.seasons}`;
+        } else {
+          document.getElementById('netflix-seasons').textContent = `1 ${t.seasonSingle}`;
+        }
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    function saveToList() {
+      const t = tributeI18n[currentLang] || tributeI18n.es;
+      const btn = document.getElementById('btn-my-list');
+      btn.innerHTML = `<span class="text-emerald-400 font-bold">${t.inMyList}</span>`;
+      btn.classList.add('bg-zinc-700');
+    }
+
+    function shareWhatsApp() {
+      const text = encodeURIComponent(`Olha nossa série exclusiva na Netflix ❤️: ${window.location.href}`);
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTribute();
+    });
+  </script>
+</body>
+</html>
