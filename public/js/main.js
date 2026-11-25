@@ -310,6 +310,15 @@ window.openWizard = function(plan = 'exclusive') {
     modal.classList.remove('hidden');
     selectPlan(plan);
     goToStep(1);
+
+    try {
+      const match = document.cookie.match(/love_user_email=([^;]+)/);
+      const email = match ? decodeURIComponent(match[1]) : (JSON.parse(localStorage.getItem('love_user_session') || '{}').email || '');
+      const emailInp = document.getElementById('input-creator-email');
+      if (emailInp && email && !emailInp.value) {
+        emailInp.value = email;
+      }
+    } catch(e) {}
   }
 };
 
@@ -472,8 +481,25 @@ window.generateSurprise = async function() {
     // Default photos if none uploaded
     const photos = uploadedPhotos.length > 0 ? uploadedPhotos : ['/videos/hero-criar.jpg', '/images/og-default.png'];
 
+    // Check logged in user to bind tribute to their real account
+    let userEmail = null;
+    try {
+      const match = document.cookie.match(/love_user_email=([^;]+)/);
+      if (match) userEmail = decodeURIComponent(match[1]);
+      if (!userEmail) {
+        const session = JSON.parse(localStorage.getItem('love_user_session') || '{}');
+        if (session.email) userEmail = session.email;
+      }
+    } catch(e) {}
+
+    const creatorEmailInput = document.getElementById('input-creator-email');
+    if (creatorEmailInput && creatorEmailInput.value.trim()) {
+      userEmail = creatorEmailInput.value.trim().toLowerCase();
+    }
+
     const tributePayload = {
       id: currentTributeId,
+      userEmail,
       sender,
       partner,
       title,

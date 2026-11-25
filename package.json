@@ -16,5 +16,8 @@
     "qr-code"
   ],
   "author": "DiegoAzz",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "^10.6.1"
+  }
 }

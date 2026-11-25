@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Copy package info
 COPY package.json ./
+RUN npm install --production
 
 # Copy application files
 COPY server.cjs ./

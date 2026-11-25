@@ -71,7 +71,7 @@
           <div class="w-7 h-7 rounded-full bg-rose-500 text-white font-bold text-xs flex items-center justify-center" id="nav-user-avatar">
             U
           </div>
-          <span class="text-xs font-medium text-white/90 hidden sm:inline" id="nav-user-email">usuario@correo.com</span>
+          <span class="text-xs font-medium text-white/90 hidden sm:inline" id="nav-user-email">Cargando...</span>
         </div>
 
         <a href="/#crear" onclick="localStorage.setItem('open_wizard_trigger', 'true')" class="btn-crimson px-4 py-2 rounded-xl text-xs font-semibold text-white flex items-center gap-1.5">
@@ -79,7 +79,7 @@
           <span>Nuevo Homenaje</span>
         </a>
 
-        <button onclick="handleLogout()" title="Cerrar sesión" class="p-2 text-muted-foreground hover:text-rose-400 transition-colors">
+        <button onclick="handleLogout()" title="Cerrar sesión" class="p-2 text-muted-foreground hover:text-rose-400 transition-colors cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
         </button>
       </div>
@@ -93,17 +93,17 @@
     <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div>
         <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white font-bricolage mb-2">
-          ¡Hola, <span id="dash-greeting-name" class="text-rose-400">Amor</span>! ❤️
+          ¡Hola, <span id="dash-greeting-name" class="text-rose-400">Usuario</span>! ❤️
         </h1>
         <p class="text-sm text-muted-foreground">
-          Bienvenido a tu panel de Love. Aquí puedes ver y gestionar todos tus mini-sitios y homenajes.
+          Bienvenido a tu panel de Love. Aquí puedes ver y gestionar todos los mini-sitios asociados a tu cuenta.
         </p>
       </div>
 
       <div class="flex items-center gap-3">
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          Acceso Vitalicio Activo
+          Cuenta Verificada
         </span>
       </div>
     </div>
@@ -111,8 +111,8 @@
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
       <div class="glass-card p-5 rounded-2xl">
-        <div class="text-xs text-muted-foreground mb-1">Mini-Sitios Creados</div>
-        <div class="text-3xl font-bold text-white font-bricolage" id="count-tributes">1</div>
+        <div class="text-xs text-muted-foreground mb-1">Tus Mini-Sitios</div>
+        <div class="text-3xl font-bold text-white font-bricolage" id="count-tributes">0</div>
       </div>
       <div class="glass-card p-5 rounded-2xl">
         <div class="text-xs text-muted-foreground mb-1">Tema Activo</div>
@@ -131,7 +131,7 @@
     <div class="mb-8 flex items-center justify-between">
       <h2 class="text-xl font-bold text-white tracking-tight font-bricolage flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path></svg>
-        Tus Homenajes Guardados
+        Tus Homenajes Creados
       </h2>
       <span class="text-xs text-muted-foreground" id="tributes-counter-label">Cargando homenajes...</span>
     </div>
@@ -141,14 +141,14 @@
       <!-- Dynamic cards rendered by JS -->
     </div>
 
-    <!-- Empty State (hidden by default) -->
-    <div id="empty-state" class="hidden glass-card rounded-3xl p-12 text-center max-w-lg mx-auto my-8">
+    <!-- Empty State (Shown when logged-in email has 0 tributes) -->
+    <div id="empty-state" class="hidden glass-card rounded-3xl p-12 text-center max-w-lg mx-auto my-8 border border-white/10">
       <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
       </div>
-      <h3 class="text-xl font-bold text-white mb-2 font-bricolage">Aún no tienes ningún homenaje</h3>
+      <h3 class="text-xl font-bold text-white mb-2 font-bricolage">Aún no tienes ningún homenaje creado con este correo</h3>
       <p class="text-sm text-muted-foreground mb-6">
-        Crea en menos de 3 minutos tu primer mini-sitio romántico con fotos, música y estilo Netflix.
+        Crea en menos de 3 minutos tu primer mini-sitio romántico con tus fotos, música favorita y estilo Netflix.
       </p>
       <a href="/" onclick="localStorage.setItem('open_wizard_trigger', 'true')" class="btn-crimson inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white">
         <span>Crear Mi Primer Homenaje ✨</span>
@@ -158,120 +158,88 @@
   </main>
 
   <script>
-    // Load active session
-    let currentUser = null;
-    try {
-      const stored = localStorage.getItem('love_user_session');
-      if (stored) {
-        currentUser = JSON.parse(stored);
-      }
-    } catch(e) {}
-
-    if (!currentUser) {
-      // Default fallback demo user if accessed directly
-      currentUser = { email: 'usuario@correo.com', name: 'Diego', provider: 'demo' };
-    }
-
-    // Populate user UI
-    document.getElementById('nav-user-email').textContent = currentUser.email;
-    document.getElementById('dash-greeting-name').textContent = currentUser.name || currentUser.email.split('@')[0];
-    document.getElementById('nav-user-avatar').textContent = (currentUser.name || currentUser.email)[0].toUpperCase();
-
-    function handleLogout() {
-      localStorage.removeItem('love_user_session');
-      document.cookie = "love_user=; path=/; max-age=0";
-      window.location.href = '/login';
-    }
-
-    // Load tributes
-    async function loadTributes() {
-      const grid = document.getElementById('tributes-grid');
-      const emptyState = document.getElementById('empty-state');
-      let tributes = [];
-
-      // 1. Try fetching from server
+    async function initDashboard() {
       try {
-        const res = await fetch('/api/tributes');
-        if (res.ok) {
-          const data = await res.json();
-          if (data && typeof data === 'object') {
-            tributes = Object.values(data);
-          }
+        const res = await fetch('/api/user/tributes');
+        if (res.status === 401) {
+          // Unauthorized -> Redirect to login
+          window.location.href = '/login';
+          return;
         }
-      } catch(e) {}
 
-      // 2. Also check local storage for newly generated tributes
-      try {
-        const localTributes = JSON.parse(localStorage.getItem('love_created_tributes') || '[]');
-        if (Array.isArray(localTributes)) {
-          localTributes.forEach(lt => {
-            if (!tributes.some(t => t.id === lt.id)) {
-              tributes.unshift(lt);
-            }
-          });
+        const data = await res.json();
+        if (!data.ok) {
+          window.location.href = '/login';
+          return;
         }
-      } catch(e) {}
 
-      // If empty, add a default Netflix demo tribute so the dashboard always looks alive
-      if (tributes.length === 0) {
-        tributes = [
-          {
-            id: 'homenaje-demo-netflix',
-            partner1: 'Diego',
-            partner2: 'Camila',
-            title: 'Diego & Camila',
-            theme: 'netflix',
-            startDate: '2022-02-14',
-            songTitle: 'Perfect - Ed Sheeran',
-            createdAt: new Date().toISOString()
-          }
-        ];
-      }
+        const user = data.user;
+        const tributes = data.tributes || [];
 
-      document.getElementById('count-tributes').textContent = tributes.length;
-      document.getElementById('tributes-counter-label').textContent = `${tributes.length} homenaje(s)`;
+        // Update User Profile UI
+        document.getElementById('nav-user-email').textContent = user.email;
+        document.getElementById('dash-greeting-name').textContent = user.name || user.email.split('@')[0];
+        document.getElementById('nav-user-avatar').textContent = (user.name || user.email)[0].toUpperCase();
 
-      if (tributes.length === 0) {
-        grid.innerHTML = '';
-        emptyState.classList.remove('hidden');
-        return;
-      }
+        document.getElementById('count-tributes').textContent = tributes.length;
+        document.getElementById('tributes-counter-label').textContent = `${tributes.length} homenaje(s)`;
 
-      emptyState.classList.add('hidden');
-      grid.innerHTML = tributes.map(t => {
-        const title = (t.partner1 && t.partner2) ? `${t.partner1} & ${t.partner2}` : (t.title || 'Homenaje Especial');
-        const themeLabel = (t.theme === 'netflix' || !t.theme) ? 'Netflix Edition' : t.theme;
-        const targetUrl = window.location.origin + '/tribute/' + t.id;
-        const dateStr = t.createdAt ? new Date(t.createdAt).toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Reciente';
+        const grid = document.getElementById('tributes-grid');
+        const emptyState = document.getElementById('empty-state');
 
-        return `
-          <div class="glass-card rounded-2xl p-6 flex flex-col justify-between border border-white/10 hover:border-rose-500/40 transition-all">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-rose-500/10 text-rose-300 border border-rose-500/20">
-                  <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                  ${themeLabel}
-                </span>
-                <span class="text-xs text-muted-foreground">${dateStr}</span>
+        if (tributes.length === 0) {
+          grid.innerHTML = '';
+          emptyState.classList.remove('hidden');
+          return;
+        }
+
+        emptyState.classList.add('hidden');
+        grid.innerHTML = tributes.map(t => {
+          const title = (t.sender && t.partner) ? `${t.sender} & ${t.partner}` : (t.title || 'Homenaje Especial');
+          const themeLabel = (t.theme === 'netflix' || !t.theme) ? 'Netflix Edition' : t.theme;
+          const targetUrl = window.location.origin + '/tribute/' + t.id;
+          const dateStr = t.createdAt ? new Date(t.createdAt).toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Reciente';
+
+          return `
+            <div class="glass-card rounded-2xl p-6 flex flex-col justify-between border border-white/10 hover:border-rose-500/40 transition-all">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-rose-500/10 text-rose-300 border border-rose-500/20">
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                    ${themeLabel}
+                  </span>
+                  <span class="text-xs text-muted-foreground">${dateStr}</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-white font-bricolage mb-1">${title}</h3>
+                <p class="text-xs text-muted-foreground mb-4">
+                  Música: <span class="text-white/80">${t.song || 'Perfect - Ed Sheeran'}</span>
+                </p>
               </div>
 
-              <h3 class="text-xl font-bold text-white font-bricolage mb-1">${title}</h3>
-              <p class="text-xs text-muted-foreground mb-4">
-                Música: <span class="text-white/80">${t.songTitle || 'Perfect - Ed Sheeran'}</span>
-              </p>
+              <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-2 mt-4">
+                <a href="/tribute/${t.id}" target="_blank" class="btn-crimson flex-1 py-2 px-3 rounded-xl text-xs font-semibold text-white text-center flex items-center justify-center gap-1">
+                  <span>Ver Mini-Sitio 👁️</span>
+                </a>
+                <button onclick="copyLink('${targetUrl}')" title="Copiar enlace" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/80 transition-colors border border-white/10 cursor-pointer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                </button>
+              </div>
             </div>
+          `;
+        }).join('');
+      } catch (err) {
+        console.error('Error loading dashboard:', err);
+        window.location.href = '/login';
+      }
+    }
 
-            <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-2 mt-4">
-              <a href="/tribute/${t.id}" target="_blank" class="btn-crimson flex-1 py-2 px-3 rounded-xl text-xs font-semibold text-white text-center flex items-center justify-center gap-1">
-                <span>Ver Mini-Sitio 👁️</span>
-              </a>
-              <button onclick="copyLink('${targetUrl}')" title="Copiar enlace" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/80 transition-colors border border-white/10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
+    async function handleLogout() {
+      try {
+        await fetch('/api/auth/logout', { method: 'POST' });
+      } catch(e) {}
+      localStorage.removeItem('love_user_session');
+      window.location.href = '/login';
     }
 
     function copyLink(url) {
@@ -282,7 +250,7 @@
       });
     }
 
-    loadTributes();
+    initDashboard();
   </script>
 </body>
 </html>
