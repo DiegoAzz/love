@@ -111,6 +111,54 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (req.method === 'GET' && reqUrl === '/api/tributes') {
+    const all = readTributes();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(all));
+    return;
+  }
+
+  // Auth endpoints (Google instant login & Email OTP)
+  if (req.method === 'POST' && reqUrl === '/api/auth/login') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const email = (payload.email || '').trim().toLowerCase();
+        const provider = payload.provider || 'email';
+
+        // "si es con gmail entra enseguida"
+        if (provider === 'google' || email.endsWith('@gmail.com') || email.endsWith('@googlemail.com')) {
+          const user = {
+            email: email || 'usuario.love@gmail.com',
+            name: (email || 'Diego').split('@')[0],
+            provider: 'google',
+            loggedInAt: new Date().toISOString()
+          };
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, instant: true, user }));
+          return;
+        }
+
+        // "pero si no manda un codigo, quiero hacerlo igual"
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          ok: true,
+          instant: false,
+          email,
+          code,
+          message: 'Código de verificación generado'
+        }));
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
   // Standalone Tribute Page Route: /tribute/:id
   if (reqUrl.startsWith('/tribute/')) {
     const filePath = path.join(PUBLIC_DIR, 'tribute.html');
@@ -118,6 +166,36 @@ const server = http.createServer((req, res) => {
       if (err) {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Tribute viewer template not found');
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(content);
+    });
+    return;
+  }
+
+  // Auth Pages Routing
+  if (reqUrl === '/login' || reqUrl === '/es/login' || reqUrl === '/pt-br/login' || reqUrl === '/en/login') {
+    const filePath = path.join(PUBLIC_DIR, 'login.html');
+    fs.readFile(filePath, (err, content) => {
+      if (err) {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Login page not found');
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(content);
+    });
+    return;
+  }
+
+  // Dashboard Page Routing
+  if (reqUrl === '/dashboard' || reqUrl === '/mis-sitios' || reqUrl === '/es/dashboard' || reqUrl === '/panel') {
+    const filePath = path.join(PUBLIC_DIR, 'dashboard.html');
+    fs.readFile(filePath, (err, content) => {
+      if (err) {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Dashboard page not found');
         return;
       }
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });

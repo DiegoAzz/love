@@ -505,6 +505,13 @@ window.generateSurprise = async function() {
         signal: controller.signal
       }).catch(() => {});
       clearTimeout(timeoutId);
+
+      // Save to user's local tribute list for dashboard
+      try {
+        const existing = JSON.parse(localStorage.getItem('love_created_tributes') || '[]');
+        existing.unshift(tributePayload);
+        localStorage.setItem('love_created_tributes', JSON.stringify(existing.slice(0, 30)));
+      } catch(e) {}
     } catch (netErr) {
       console.warn('Backend sync error:', netErr);
     }
@@ -707,3 +714,32 @@ window.closePreview = function() {
   const modal = document.getElementById('preview-modal');
   if (modal) modal.classList.add('hidden');
 };
+
+// 11. Header Auth Session & Wizard Auto-Trigger
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    const sessionStr = localStorage.getItem('love_user_session');
+    if (sessionStr) {
+      const session = JSON.parse(sessionStr);
+      if (session && session.email) {
+        const loginLinks = document.querySelectorAll('a[href="/login"]');
+        loginLinks.forEach(link => {
+          link.href = '/dashboard';
+          link.innerHTML = `
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Mis Sitios</span>
+          `;
+          link.classList.remove('text-white/80');
+          link.classList.add('text-white', 'bg-white/10', 'border', 'border-white/15');
+        });
+      }
+    }
+
+    if (localStorage.getItem('open_wizard_trigger') === 'true') {
+      localStorage.removeItem('open_wizard_trigger');
+      if (typeof openWizard === 'function') {
+        setTimeout(openWizard, 250);
+      }
+    }
+  } catch(e) {}
+});
